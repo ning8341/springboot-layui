@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.manager.dao.ArticleMapper">
+    <resultMap id="BaseResultMap" type="com.blog.manager.pojo.BaseArticle">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="createTime" jdbcType="VARCHAR" property="createTime"/>
+        <result column="delFlag" jdbcType="INTEGER" property="delFlag"/>
+    </resultMap>
+
+    <select id="selectArticleList" resultType="com.blog.manager.pojo.BaseArticle">
+     select
+         t.*
+      from
+         base_article t
+     where  delFlag=1
+    </select>
+
+</mapper>
