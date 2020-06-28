@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <!--head部分-->
 <head th:include="layout :: htmlhead" th:with="title='后台管理'">
@@ -15,7 +15,8 @@
             <div class="layui-row">
                 <div class="layui-col-xs9">
                     &nbsp;
-                    <h1 style="padding-top:50px;line-height:2.0;"><shiro:principal property="sysUserName"></shiro:principal>，欢迎登录
+                    <h1 style="padding-top:50px;line-height:2.0;">
+                        <shiro:principal property="name"></shiro:principal>，欢迎登录
                         <span style="font-weight: bold;font-size:28px;">后台管理系统</span></a></h1>
                 </div>
             </div>

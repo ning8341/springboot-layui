@@ -10,7 +10,7 @@ $(function() {
 
         tableIns=table.render({
             elem: '#uesrList',
-            url:'/user/getUserList',
+            url:'/user/list',
             method: 'post', //默认：get请求
             cellMinWidth: 80,
             page: true,
@@ -26,11 +26,12 @@ $(function() {
             },
             cols: [[
                 {type:'numbers'}
-                ,{field:'sysUserName', title:'用户名',align:'center'}
-                ,{field:'roleName', title:'角色类型',align:'center'}
-                ,{field:'userPhone', title:'手机号',align:'center'}
-                ,{field:'regTime', title: '注册时间',align:'center'}
-                ,{field:'userStatus', title: '是否有效',align:'center'}
+                ,{field:'name', title:'用户名',align:'center'}
+                //此处可以关联查询用户的role，使用left join即可，这块偷懒，直接写
+                ,{field:'roleId', title:'角色类型',align:'center',templet: '<div>{{d.roleId === "1" ? "超级管理员" : "普通用户"}}</div>'}
+                ,{field:'phone', title:'手机号',align:'center'}
+                ,{field:'createTime', title: '注册时间',align:'center'}
+                ,{field:'status', title: '是否有效',align:'center',templet: '<div>{{d.status === 1 ? "启用" : "禁用"}}</div>'}
                 ,{title:'操作',align:'center', toolbar:'#optBar'}
             ]],
             done: function(res, curr, count){
@@ -57,7 +58,7 @@ $(function() {
             var data = obj.data;
             if(obj.event === 'del'){
                 //删除
-                delUser(data,data.id,data.sysUserName);
+                delUser(data,data.id,data.name);
             } else if(obj.event === 'edit'){
                 //编辑
                 openUser(data,"编辑");
@@ -101,7 +102,7 @@ function formSubmit(obj){
     $.ajax({
         type: "POST",
         data: $("#userForm").serialize(),
-        url: "/user/setUser",
+        url: "/user/save",
         success: function (data) {
             if (data.code == 1) {
                 layer.alert(data.msg,function(){
@@ -124,7 +125,7 @@ function formSubmit(obj){
 
 //开通用户
 function addUser(){
-    openUser(null,"开通用户");
+    openUser(null,"新增");
 }
 function openUser(data,title){
     var roleId = null;
@@ -132,8 +133,8 @@ function openUser(data,title){
         $("#id").val("");
     }else{
         $("#id").val(data.id);
-        $("#username").val(data.sysUserName);
-        $("#mobile").val(data.userPhone);
+        $("#username").val(data.name);
+        $("#mobile").val(data.phone);
         roleId = data.roleId;
     }
     var pageNum = $(".layui-laypage-skip").find("input").val();

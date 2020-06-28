@@ -41,15 +41,15 @@
                     <div class="layui-form-item layui-col-md-offset3">
                         <label class="layui-form-label">用户名</label>
                         <div class="layui-col-xs4 ">
-                            <input id="username" name="username" lay-verify="required" autocomplete="off"
-                                   class="layui-input" type="tel"/>
+                            <input id="username" name="name" lay-verify="required" autocomplete="off"
+                                   class="layui-input" type="tel" th:value="*{'admin'}"/>
                         </div>
                     </div>
                     <div class="layui-form-item layui-col-md-offset3">
                         <label class="layui-form-label">密&nbsp;&nbsp;码</label>
                         <div class="layui-col-xs4 ">
-                            <input id="password" name="password" lay-verify="required" autocomplete="off"
-                                   class="layui-input" type="password"/>
+                            <input id="password" name="pwd" lay-verify="required" autocomplete="off"
+                                   class="layui-input" type="password" th:value="admin"/>
                         </div>
                     </div>
                     <!--<div class="layui-form-item" style="margin-top: -20px;">-->

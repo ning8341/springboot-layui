@@ -7,7 +7,7 @@ spring:
       name: blog
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3306/blog?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+      url: jdbc:mysql://localhost:3306/blog2?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
       username: root
       password: 123456
       initial-size: 1
@@ -16,10 +16,24 @@ spring:
       test-on-borrow: true
       driver-class-name: com.mysql.jdbc.Driver
 
-mybatis:
-    mapper-locations: classpath:mapper/*.xml
+#mybatis:
+#    mapper-locations: classpath:mapper/*.xml
 
 thymeleaf:
   cache: false
 #设置静态资源路径，多个以逗号分隔
 spring.resources.static-locations: classpath:static/,file:static/
+
+# mybatisplus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  typeAliasesPackage: com.blog.entity
+  global-config:
+    refresh: true
+  type-aliases-super-type: java.lang.Object
+  configuration:
+    map-underscore-to-camel-case: true
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
