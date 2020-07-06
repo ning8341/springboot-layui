@@ -124,17 +124,14 @@ function edit(data,title){
         keyVal: 'id',
         success: function(id, url, searchVal, result){      //使用远程方式的success回调
 
-            console.log(pid)
             if(pid != null){
                 var assistAuditArry =pid.split(",");
                 formSelects.value('permissions', assistAuditArry);
             }
 
-            console.log(result);    //返回的结果
         },
         error: function(id, url, searchVal, err){           //使用远程方式的error回调
                                                             //同上
-            console.log(err);   //err对象
         },
     });
 

@@ -11,10 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -32,22 +29,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/userManage")
+    @GetMapping("/userList")
     public String userManage() {
-        return "/user/userManage";
+        return "/user/userList";
     }
 
     @PostMapping("/list")
     @ResponseBody
-    public Map<String, Object> list(HttpServletRequest request, Map paramMap) {
-        PageModel<UserModel> pageModel = new PageModel(request);
-        if (pageModel.isAllowPage()) {
-            pageModel = (PageModel<UserModel>) userService.findPage(pageModel, paramMap);
-            return Result.ok(pageModel);
-        } else {
-            List<UserModel> userList = userService.findList(paramMap);
-            return Result.ok(userList);
-        }
+    public Map<String, Object> list(@RequestBody PageModel<UserModel> pageModel) {
+        pageModel = (PageModel<UserModel>) userService.findPage(pageModel);
+        return Result.ok(pageModel);
+
     }
 
     /**
@@ -56,7 +48,7 @@ public class UserController {
      */
     @PostMapping("/save")
     @ResponseBody
-    public Map<String, Object> save(UserModel userModel) {
+    public Map<String, Object> save(@RequestBody UserModel userModel) {
         UserModel user = (UserModel) SecurityUtils.getSubject().getPrincipal();
         if (StringUtils.isEmpty(userModel.getId())) {
             userModel.setCreateTime(new Date());
@@ -81,6 +73,24 @@ public class UserController {
         userModel.setUpdateTime(new Date());
         userModel.setUpdateBy(user.getId());
         userService.updateById(userModel);
+        return Result.ok("操作成功");
+    }
+
+    @DeleteMapping("/delBatchByIds")
+    @ResponseBody
+    public Map<String, Object> delete(@RequestBody String[] ids) {
+        List<String> idList = Arrays.asList(ids);
+        UserModel user = (UserModel) SecurityUtils.getSubject().getPrincipal();
+        List<UserModel> userList = new ArrayList<>();
+        for (String id : idList) {
+            UserModel userModel = new UserModel();
+            userModel.setId(id);
+            userModel.setIsDeleted(1);
+            userModel.setUpdateBy(user.getId());
+            userModel.setUpdateTime(new Date());
+            userList.add(userModel);
+        }
+        userService.updateBatchById(userList);
         return Result.ok("操作成功");
     }
 

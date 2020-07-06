@@ -60,7 +60,7 @@ CREATE TABLE `t_permission` (
 -- ----------------------------
 INSERT INTO `t_permission` VALUES ('1', '系统管理', '0', '系统管理', '', '0', null, null, null, null);
 INSERT INTO `t_permission` VALUES ('18', '文章管理', '9', '文章管理', '/article/articleManage', '0', null, null, null, null);
-INSERT INTO `t_permission` VALUES ('2', '账号管理', '1', '账号管理', '/user/userManage', '0', null, null, null, null);
+INSERT INTO `t_permission` VALUES ('2', '账号管理', '1', '账号管理', '/user/userList', '0', null, null, null, null);
 INSERT INTO `t_permission` VALUES ('3', '角色管理', '1', '角色管理', '/role/roleManage', '0', null, null, null, null);
 INSERT INTO `t_permission` VALUES ('7', '权限管理', '1', '权限管理', '/permission/permissionManage', '0', null, null, null, null);
 INSERT INTO `t_permission` VALUES ('9', '博客管理', '0', '博客的管理', '', '0', null, null, null, null);

@@ -20,7 +20,6 @@ function ajaxError(){
 		},
 		error:function(e){
 			//也可通过error控制请求失败的情况
-			console.log("e:"+e);
 		}
 	});
 }

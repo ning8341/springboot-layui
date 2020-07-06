@@ -52,7 +52,11 @@ Thymeleaf
  账号密码都是 admin
  ![在这里插入图片描述](http://a1.qpic.cn/psc?/V10tkViL1pv1uh/w47sCHZ1vIeYe.9hWkknXQPnkOGAAdYWrf.dL5K34e7f.QEpuJZ7*momxhmAiZoh7xf*2iATxBcqXAHJjhYFiw!!/c&ek=1&kp=1&pt=0&bo=WgfxAwAAAAADR80!&tl=1&vuin=875881505&tm=1593079200&sce=60-2-2&rf=viewer_4&t=5)
 
+## userManage改为userList  t_permission表中修改对应的user的访问路径改为/user/userList
+## 重写userList的js
+## 重写userController的crud  
 
+##目前只重写了user的一个demo模块（dev分支）
 
 
 

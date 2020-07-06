@@ -595,7 +595,6 @@
 
                 grid.update = function (row, index) {
                     if (index == undefined || index < 0) {
-                        console.log('grid error: index参数错误');
                         return;
                     }
                     grid.pageData.rows[index] = row;
@@ -611,7 +610,6 @@
 
                 grid.delete = function (index) {
                     if (index == undefined) {
-                        console.log('grid error:index参数错误');
                         return;
                     } else if (Object.prototype.toString.call(index) != '[object Array]') {
                         index = [index];

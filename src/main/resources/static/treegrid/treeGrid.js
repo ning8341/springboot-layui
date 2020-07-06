@@ -336,7 +336,6 @@
             //修改节点
             grid.updateNode = function (row,id) {
                 if (id == undefined) {
-                    console.log('treegrid error:参数id错误');
                     return;
                 }
                 var tr = grid.elem.find('.grid-body tr.treegrid-' + id);
@@ -348,7 +347,6 @@
             //删除节点及其子节点
             grid.deleteNode = function (id) {
                 if (id == undefined) {
-                    console.log('treegrid error:参数id错误');
                     return;
                 }
                 var tr = grid.elem.find('.grid-body tr.treegrid-' + id);

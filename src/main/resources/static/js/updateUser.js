@@ -15,7 +15,6 @@ function setPwd(){
     var pwd=$("#pwd").val();
     var isPwd=$("#isPwd").val();
     $.post("/user/setPwd",{"pwd":pwd,"isPwd":isPwd},function(data){
-        console.log("data:"+data);
         if(data.code=="1"){
             layer.alert("操作成功",function () {
                 layer.closeAll();

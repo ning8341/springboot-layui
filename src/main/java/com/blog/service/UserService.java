@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.blog.entity.UserModel;
 import com.blog.util.PageModel;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,8 +17,8 @@ import java.util.Map;
  */
 public interface UserService extends IService<UserModel> {
 
-    Page<UserModel> findPage(PageModel<UserModel> pageModel, Map paramMap);
+    Page<UserModel> findPage(PageModel<UserModel> pageModel);
 
-    List<UserModel> findList(Map paramMap);
+
 
 }
