@@ -56,7 +56,7 @@ Thymeleaf
 ## 重写userList的js
 ## 重写userController的crud  
 
-##目前只重写了user的一个demo模块（dev分支）
+## 目前只重写了user的一个demo模块（dev分支）,后期是否开发一些功能看情况
 
 
 
