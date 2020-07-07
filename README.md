@@ -55,8 +55,9 @@ Thymeleaf
 ## userManage改为userList  t_permission表中修改对应的user的访问路径改为/user/userList
 ## 重写userList的js
 ## 重写userController的crud  
-
 ## 目前只重写了user的一个demo模块（dev分支）,后期是否开发一些功能看情况
+## 添加role模块
+
 
 
 
