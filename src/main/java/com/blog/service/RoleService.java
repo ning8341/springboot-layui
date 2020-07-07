@@ -1,7 +1,9 @@
 package com.blog.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.blog.entity.RoleModel;
+import com.blog.util.PageModel;
 
 /**
  * <p>
@@ -12,5 +14,6 @@ import com.blog.entity.RoleModel;
  * @since 2020-06-28
  */
 public interface RoleService extends IService<RoleModel> {
+    Page<RoleModel> findPage(PageModel<RoleModel> pageModel);
 
 }

@@ -16,8 +16,8 @@ spring:
       driver-class-name: com.p6spy.engine.spy.P6SpyDriver
 
 
-thymeleaf:
-  cache: false
+  thymeleaf:
+    cache: false
 #设置静态资源路径，多个以逗号分隔
 spring.resources.static-locations: classpath:static/,file:static/
 
