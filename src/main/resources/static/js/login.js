@@ -21,7 +21,7 @@ function login(data) {
         if (data.code == 0) {
             window.location.href = data.url;
         } else {
-            layer.alert(data.message, function () {
+            layer.alert(data.msg, function () {
                 layer.closeAll();//关闭所有弹框
             });
         }

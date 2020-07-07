@@ -1,10 +1,12 @@
 package com.blog.controller;
 
 
+import cn.hutool.crypto.SecureUtil;
 import com.blog.entity.UserModel;
 import com.blog.service.UserService;
 import com.blog.util.PageModel;
 import com.blog.util.Result;
+import org.apache.catalina.User;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,13 +50,18 @@ public class UserController {
      */
     @PostMapping("/save")
     @ResponseBody
-    public Map<String, Object> save(@RequestBody UserModel userModel) {
+    public Map<String, Object> saveOrUpdate(@RequestBody UserModel userModel) {
+        String pwd = userModel.getPwd();
         UserModel user = (UserModel) SecurityUtils.getSubject().getPrincipal();
         if (StringUtils.isEmpty(userModel.getId())) {
             userModel.setCreateTime(new Date());
             userModel.setCreateBy(user.getId());
+            userModel.setPwd(SecureUtil.md5(pwd));
             userService.save(userModel);
         } else {
+            if (!StringUtils.isEmpty(pwd)) {
+                userModel.setPwd(SecureUtil.md5(pwd));
+            }
             userModel.setUpdateTime(new Date());
             userModel.setUpdateBy(user.getId());
             userService.updateById(userModel);
@@ -91,6 +98,21 @@ public class UserController {
             userList.add(userModel);
         }
         userService.updateBatchById(userList);
+        return Result.ok("操作成功");
+    }
+
+    /**
+     * 简单写，密码校验跳过
+     *
+     * @return
+     */
+    @PostMapping("/setPwd")
+    @ResponseBody
+    public Map<String, Object> updatePwd(@RequestBody UserModel userModel) {
+        String pwd = userModel.getPwd();
+        userModel.setPwd(SecureUtil.md5(pwd));
+        userModel.setUpdateTime(new Date());
+        userService.updateById(userModel);
         return Result.ok("操作成功");
     }
 

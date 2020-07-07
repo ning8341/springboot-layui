@@ -12,12 +12,13 @@
         </a>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:;">
+                <p href="javascript:;">
                     <img src="/images/man.jpg" class="layui-nav-img"/>
-                    <shiro:principal property="name"></shiro:principal>
+                    <shiro:principal property="name" ></shiro:principal>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd id="updUsePwdDd" class="layui-this"><a href="javascript:;" onclick="updateUsePwd();">修改密码</a></dd>
+                    <p th:style="'display:none'" class="remark-id"><shiro:principal property="id" ></shiro:principal></p>
+                    <dd id="updUsePwdDd" class="layui-this"><a href="javascript:;"  onclick="updateUsePwd();">修改密码</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="/logout">退出</a></li>

@@ -189,8 +189,8 @@ $(function () {
                                 if (data.code == 1) {
                                     layer.alert(data.msg, function () {
                                         layer.closeAll();
-                                        UserList.commonSearch();
                                     });
+                                    UserList.commonSearch();
                                 } else {
                                     layer.alert(data.msg);
                                 }
@@ -240,7 +240,7 @@ $(function () {
                         data: JSON.stringify(ids),
                         contentType: "application/json",
                         success: function (data) {
-                            if (data.code === 1) {
+                            if (data.code == 1) {
                                 layer.close(indexMsg);
                                 layer.msg("删除成功", {icon: 1, time: 2000});
                                 UserList.commonSearch();

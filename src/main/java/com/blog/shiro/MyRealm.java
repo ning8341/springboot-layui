@@ -3,16 +3,13 @@ package com.blog.shiro;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.blog.entity.UserModel;
 import com.blog.service.UserService;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -23,17 +20,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class MyRealm extends AuthorizingRealm {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-
     @Autowired
     private UserService userService;
 
 
-
-
     /**
-     *
      * 功能描述: 授权
      *
      * @param:
@@ -42,42 +33,13 @@ public class MyRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
-        //授权
-        logger.info("授予角色和权限");
         // 添加权限 和 角色信息
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        // 获取当前登陆用户
-        /*Subject subject = SecurityUtils.getSubject();
-        BaseAdminUser user = (BaseAdminUser) subject.getPrincipal();
-        System.out.println(user);
-        if (user.getSysUserName().equals("admin")) {
-            // 超级管理员，添加所有角色、添加所有权限
-            authorizationInfo.addRole("*");
-            authorizationInfo.addStringPermission("*");
-        } else {
-            // 普通用户，查询用户的角色，根据角色查询权限
-            Integer roleId = user.getRoleId();
-            BaseAdminRole role = roleService.findRoleById(roleId);
-            if (null != role ) {
-                String permissions = role.getPermissions();
-                String[] ids = permissions.split(",");
-                for (String id : ids) {
-                    authorizationInfo.addRole(role.getRoleName());
-                    // 角色对应的权限数据
-                    BaseAdminPermission perm = permissionService.getById(id);
-                    if (null != perm ) {
-                        // 授权角色下所有权限
-                        authorizationInfo.addStringPermission(perm.getUrl());
-                    }
-                }
-            }
-        }*/
         return authorizationInfo;
     }
 
 
     /**
-     *
      * 功能描述: 认证
      *
      * @param:
@@ -88,14 +50,11 @@ public class MyRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         //UsernamePasswordToken用于存放提交的登录信息
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
-        logger.info("用户登录认证：验证当前Subject时获取到token为：" + ReflectionToStringBuilder
-                .toString(token, ToStringStyle.MULTI_LINE_STYLE));
         String username = token.getUsername();
         // 调用数据层
         QueryWrapper<UserModel> wrapper = new QueryWrapper<UserModel>();
-        wrapper.lambda().eq(UserModel::getName,username);
+        wrapper.lambda().eq(UserModel::getName, username);
         UserModel sysUser = userService.getOne(wrapper);
-        logger.debug("用户登录认证！用户信息user：" + sysUser);
         if (sysUser == null) {
             // 用户不存在
             return null;
@@ -104,5 +63,15 @@ public class MyRealm extends AuthorizingRealm {
         return new SimpleAuthenticationInfo(sysUser, sysUser.getPwd(), ByteSource.Util.bytes(username), getName());
 
     }
+
+    /**
+     * 设置认证加密方式
+     */
+    @Override
+    public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
+        MyCredentialsMatcher customCredentialsMatcher = new MyCredentialsMatcher();
+        super.setCredentialsMatcher(customCredentialsMatcher);
+    }
+
 
 }

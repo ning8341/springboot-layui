@@ -1,23 +1,20 @@
 server:
   port: 8080
 
-
 spring:
   application:
-      name: blog
+    name: try
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3306/blog2?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+      url: jdbc:p6spy:mysql://localhost:3306/blog2?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
       username: root
       password: 123456
       initial-size: 1
       min-idle: 1
       max-active: 20
       test-on-borrow: true
-      driver-class-name: com.mysql.jdbc.Driver
+      driver-class-name: com.p6spy.engine.spy.P6SpyDriver
 
-#mybatis:
-#    mapper-locations: classpath:mapper/*.xml
 
 thymeleaf:
   cache: false
@@ -34,6 +31,4 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
 
-mybatis:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
