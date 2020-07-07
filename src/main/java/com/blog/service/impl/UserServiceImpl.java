@@ -40,7 +40,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserModel> implemen
         paramMap.forEach((k, v) -> {
             if(!StringUtils.isEmpty(v)){
                 if (name.equals(k)) {
-                    wrapper.like("name", name);
+                    wrapper.like("name", v);
                 }
             }
         });

@@ -57,6 +57,7 @@ Thymeleaf
 ## 重写userController的crud  
 ## 目前只重写了user的一个demo模块（dev分支）,后期是否开发一些功能看情况
 ## 添加role模块
+## 添加permission模块
 
 
 

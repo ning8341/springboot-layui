@@ -8,13 +8,27 @@
     <div th:replace="fragments/head :: header"></div>
 
     <div class="layui-body" style="margin: 1%">
+
+        <blockquote class="layui-elem-quote news_search">
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" value="" placeholder="权限名称" class="layui-input search_input">
+                </div>
+                <a class="layui-btn search_btn">查询</a>
+            </div>
+            <div class="layui-inline">
+                <a class="layui-btn layui-btn-normal add_btn" >添加权限</a>
+            </div>
+            <div class="layui-inline">
+                <a class="layui-btn layui-btn-danger batchDel_btn">批量删除</a>
+            </div>
+        </blockquote>
+
         <table id="permissionList" lay-filter="permissionTable"></table>
 
-        <button class="layui-btn layui-btn-normal" onclick="add()">新增</button>
 
         <script type="text/html" id="optBar">
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>
 
     </div>
@@ -54,7 +68,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block" style="margin-left: 10px;">
-                    <button class="layui-btn"  lay-submit="" lay-filter="permissionSubmit">提交</button>
+                    <button class="layui-btn" type="button"  lay-submit="" lay-filter="permissionSubmit">提交</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
@@ -64,7 +78,7 @@
 
    <!--底部-->
     <div th:replace="fragments/footer :: footer"></div>
-    <script src="/js/permission/permission.js"></script>
+    <script src="/js/permission/permissionList.js"></script>
 
 </div>
 </body>

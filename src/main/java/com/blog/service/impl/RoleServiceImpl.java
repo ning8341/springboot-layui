@@ -37,7 +37,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleModel> implemen
         paramMap.forEach((k, v) -> {
             if(!StringUtils.isEmpty(v)){
                 if (name.equals(k)) {
-                    wrapper.like("role_name", name);
+                    wrapper.like("role_name", v);
                 }
             }
         });
