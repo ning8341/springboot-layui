@@ -3,7 +3,6 @@ $(function () {
         var table = layui.table,
             layer = layui.layer,
             form = layui.form;
-
         var UserList = {
             tableIns: "",
             pageCurr: "",
