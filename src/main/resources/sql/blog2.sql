@@ -112,5 +112,5 @@ CREATE TABLE `t_user` (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('1', 'admin', '3ef7164d1f6167cb9f2658c07d3c2f0a', '1', '13411182215', '1', '密码admin', '0', '2020-06-28 17:36:29', null, null, null);
-INSERT INTO `t_user` VALUES ('ebf3c881f2f6425583b67a94dc9d826a', 'xxx', '', '2', '1', '0', null, '0', '2020-06-28 17:36:33', null, '2020-06-28 18:03:55', '1');
+INSERT INTO `t_user` VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3', '1', '13411182215', '1', '密码admin', '0', '2020-06-28 17:36:29', null, null, null);
+INSERT INTO `t_user` VALUES ('ebf3c881f2f6425583b67a94dc9d826a', 'xxx', 'e10adc3949ba59abbe56e057f20f883e', '2', '1', '0', null, '0', '2020-06-28 17:36:33', null, '2020-06-28 18:03:55', '1');
