@@ -67,6 +67,8 @@ public class ShiroConfig {
         Map<String, String> filterMap = new LinkedHashMap<>();
         // 放行登录页面
         filterMap.put("/login", "anon");
+        //放行druid
+        filterMap.put("/druid/**", "anon");
         // 配置退出过滤器,具体的退出代码Shiro已经实现
         filterMap.put("/logout", "logout");
         //配置记住我或认证通过可以访问的地址
