@@ -5,11 +5,11 @@ spring:
   application:
     name: try
   datasource:
-      #url: jdbc:p6spy:mysql://localhost:3306/blog2?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
-      url: jdbc:p6spy:mysql://192.168.79.129:3306/blog2?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
+      url: jdbc:p6spy:mysql://localhost:3306/blog2?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
+      #url: jdbc:p6spy:mysql://192.168.79.129:3306/blog2?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
       username: root
-      #password: 123456
-      password: lsdhb2017
+      password: 123456
+      #password: lsdhb2017
       initial-size: 1
       min-idle: 1
       max-active: 20
