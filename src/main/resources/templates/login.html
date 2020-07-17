@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <!--head部分-->
-<head th:include="layout :: htmlhead" th:with="title='后台管理'">
+<head th:include="layout :: htmlhead" th:with="title='记账管理'">
 </head>
 <style>
     body {
@@ -26,7 +26,7 @@
 <div class="layui-container" style="height: 100%">
 
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 6%">
-        <legend style="margin-left: 40%"><span style="font-weight: bold;font-size:22px;">后台管理系统</span></legend>
+        <legend style="margin-left: 40%"><span style="font-weight: bold;font-size:22px;">记账管理系统</span></legend>
     </fieldset>
 
     <div class="layui-row">
@@ -72,19 +72,6 @@
     </div>
 </div>
 <script type="text/javascript" src="/js/login.js"></script>
-<!--引入看板娘-->
-<script type="text/javascript" src="/js/live2d/L2Dwidget.0.min.js"></script>
-<script type="text/javascript"  src="/js/live2d/L2Dwidget.min.js"></script>
-<script type="text/javascript">
-    L2Dwidget.init({"display": {
-            "superSample": 2,
-            "width": 200,
-            "height": 400,
-            "position": "right",
-            "hOffset": 0,
-            "vOffset": 0
-        }
-    });
-</script>
+
 </body>
 </html>

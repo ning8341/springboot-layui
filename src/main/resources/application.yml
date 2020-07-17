@@ -5,7 +5,7 @@ spring:
   application:
     name: try
   datasource:
-      url: jdbc:p6spy:mysql://localhost:3306/blog2?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
+      url: jdbc:p6spy:mysql://localhost:3306/bookkeeping?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
       #url: jdbc:p6spy:mysql://192.168.79.129:3306/blog2?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
       username: root
       password: 123456
@@ -59,7 +59,7 @@ spring.resources.static-locations: classpath:static/,file:static/
 # mybatisplus配置
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
-  typeAliasesPackage: com.blog.entity
+  typeAliasesPackage: com.bookkeeping.entity
   global-config:
     refresh: true
   type-aliases-super-type: java.lang.Object
