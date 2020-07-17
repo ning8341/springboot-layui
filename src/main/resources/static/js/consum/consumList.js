@@ -5,45 +5,45 @@ $(function () {
             form = layui.form,
             laydate = layui.laydate;
 
-        var BillList = {
+        var ConsumList = {
             tableIns: "",
             pageCurr: "",
             init: function () {
                 //初始化时间
                 laydate.render({
-                    elem: '#billTime', //指定元素
+                    elem: '#consumTime', //指定元素
                     type:'datetime'
                 });
-                BillList.initList();
+                ConsumList.initList();
 
                 $('.search_btn').click(function () {
-                    BillList.commonSearch();
+                    ConsumList.commonSearch();
                 });
                 //回车--->执行搜索
                 $(document).keydown(function (event) {
                     if (event.keyCode == 13) {
-                        BillList.commonSearch();
+                        ConsumList.commonSearch();
                     }
                 });
 
                 $('.add_btn').click(function () {
-                    BillList.commonOpen(null, "录入账单");
+                    ConsumList.commonOpen(null, "录入账单");
                 });
 
-                form.on('submit(billSubmit)', function (data) {
-                    BillList.commonSubmit(data);
+                form.on('submit(consumSubmit)', function (data) {
+                    ConsumList.commonSubmit(data);
                     return false;
                 });
 
                 $('.batchDel_btn').click(function () {
-                    BillList.commonDelete();
+                    ConsumList.commonDelete();
                 })
             },
             initList: function () {
-                BillList.tableIns = table.render({
+                ConsumList.tableIns = table.render({
                     toolbar: true,
-                    elem: '#billList',
-                    url: '/bill/billList',
+                    elem: '#consumList',
+                    url: '/consum/consumList',
                     method: 'post',
                     cellMinWidth: 80,
                     page: true,
@@ -59,11 +59,10 @@ $(function () {
                     },
                     cols: [[
                         {type: 'checkbox', fixed: 'left'}
-                        ,{field:'title', title:'订单名称',align:'center'}
-                        ,{field:'tableNo', title:'桌位号',align:'center'}
-                        ,{field:'peopleNum', title:'用餐人数',align:'center'}
-                        ,{field:'price', title:'本单费用(单位:元)',align:'center'}
-                        ,{field:'billTime', title:'订单时间',align:'center'}
+                        ,{field:'title', title:'支出名称',align:'center'}
+                        ,{field:'details', title:'支出详情',align:'center'}
+                        ,{field:'price', title:'支出费用(单位:元)',align:'center'}
+                        ,{field:'consumTime', title:'支出时间',align:'center'}
                         ,{field:'createTime', title:'创建时间',align:'center'}
 
                     ]],
@@ -76,14 +75,14 @@ $(function () {
                             }
                         });
                         //得到数据总量
-                        BillList.pageCurr = curr;
+                        ConsumList.pageCurr = curr;
                     },
                     contentType: "application/json"
                 });
             },
             commonSearch: function () {
                 var searchKey = $('.search_input').val();
-                BillList.tableIns.reload({
+                ConsumList.tableIns.reload({
                     where: { //设定异步数据接口的额外参数，任意设
                         condition: {
                             title: searchKey
@@ -98,13 +97,13 @@ $(function () {
                 $.ajax({
                     type: "POST",
                     data: JSON.stringify(data.field),
-                    url: "/bill/save",
+                    url: "/consum/save",
                     contentType: "application/json",
                     success: function (res) {
                         if (res.code == 1) {
                             layer.alert(res.msg, function () {
                                 layer.closeAll();
-                                BillList.initList();
+                                ConsumList.initList();
                             });
                         } else {
                             layer.alert(res.msg);
@@ -113,7 +112,7 @@ $(function () {
                     error: function () {
                         layer.alert("操作请求错误，请您稍后再试", function () {
                             layer.closeAll();
-                            BillList.initList();
+                            ConsumList.initList();
                         });
                     }
                 });
@@ -140,9 +139,9 @@ $(function () {
                     resize :false,
                     shadeClose: true,
                     area: ['550px'],
-                    content:$('#setBill'),
+                    content:$('#setConsum'),
                     end:function(){
-                        BillList.commonClean();
+                        ConsumList.commonClean();
                     }
                 });
             },
@@ -152,7 +151,7 @@ $(function () {
                 $("#url").val("");
             },
             commonDelete: function () {
-                var checkStatus = table.checkStatus('billList');
+                var checkStatus = table.checkStatus('ConsumList');
                 if (checkStatus.data.length === 0) {
                     layer.msg("请选择要删除的数据", {icon: 0, time: 2000});
                     return;
@@ -166,14 +165,14 @@ $(function () {
                     }
                     $.ajax({
                         type: 'delete',
-                        url: '/bill/delBatchByIds',
+                        url: '/consum/delBatchByIds',
                         data: JSON.stringify(ids),
                         contentType: "application/json",
                         success: function (data) {
                             if (data.code == 1) {
                                 layer.close(indexMsg);
                                 layer.msg("删除成功", {icon: 1, time: 2000});
-                                BillList.commonSearch();
+                                ConsumList.commonSearch();
                             } else {
                                 layer.msg(data.msg, {icon: 1});
                             }
@@ -182,7 +181,7 @@ $(function () {
                 });
             }
         };
-        BillList.init();
+        ConsumList.init();
     });
 });
 

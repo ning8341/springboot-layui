@@ -18,7 +18,7 @@
                 <a class="layui-btn search_btn">查询</a>
             </div>
             <div class="layui-inline">
-                <a class="layui-btn layui-btn-normal add_btn" >添加文章</a>
+                <a class="layui-btn layui-btn-normal add_btn">录入收入</a>
             </div>
             <div class="layui-inline">
                 <a class="layui-btn layui-btn-danger batchDel_btn">批量删除</a>
@@ -27,49 +27,71 @@
 
 
         <table id="billList" lay-filter="billTable"></table>
-        <script type="text/html" id="optBar">
-            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-            {{#  if(d.roleStatus == '0'){ }}
-            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="recover">启用</a>
-            {{#  } else { }}
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">禁用</a>
-            {{#  } }}
-        </script>
+        <!--<script type="text/html" id="optBar">-->
+            <!--<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
+            <!--{{#  if(d.roleStatus == '0'){ }}-->
+            <!--<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="recover">启用</a>-->
+            <!--{{#  } else { }}-->
+            <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">禁用</a>-->
+            <!--{{#  } }}-->
+        <!--</script>-->
     </div>
 
-    <!--添加或编辑-->
+    <!--添加-->
     <div id="setBill" class="layer_self_wrap" style="width:500px;display:none;">
         <form id="roleForm" class="layui-form layui-form-pane" method="post" action="" style="margin-top: 20px;">
-            <p th:style="'color:red'">等待构思页面内容</p>
-            <input id="pageNum" type="hidden" name="pageNum"/>
-            <input id="id" type="hidden" name="id"/>
+            <div class="layui-form-item">
+                <label class="layui-form-label">账单类型</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="type" value="0" title="堂食" checked>
+                    <input type="radio" name="type" value="1" title="外卖">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">账单时间</label>
+                <div class="layui-input-inline">
+                    <input id="billTime" name="billTime"  class="layui-input" type="text" />
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">用餐桌号</label>
+                <div class="layui-input-inline">
+                    <input id="tableNo" name="tableNo"  autocomplete="off" class="layui-input" type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">用餐人数</label>
+                <div class="layui-input-inline">
+                    <input id="peopleNum" name="peopleNum"  autocomplete="off" class="layui-input" type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">账单金额</label>
+                <div class="layui-input-inline">
+                    <input id="price" name="price" lay-verify="required" autocomplete="off"  class="layui-input"
+                           type="number"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">账单明细</label>
+                <div class="layui-input-inline">
+                    <input id="details" name="details" lay-verify="required" placeholder="小炒肉1份..."  autocomplete="off" class="layui-input"
+                           type="text"/>
+                </div>
+            </div>
 
-            <!--<div class="layui-form-item">-->
-                <!--<label class="layui-form-label">角色名称</label>-->
-                <!--<div class="layui-input-inline">-->
-                    <!--<input id="roleName" name="roleName" lay-verify="required" autocomplete="off" class="layui-input" type="text"/>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="layui-form-item">-->
-                <!--<label class="layui-form-label">角色描述</label>-->
-                <!--<div class="layui-input-inline">-->
-                    <!--<input id="roleDesc" name="roleDesc" lay-verify="required" autocomplete="off" class="layui-input" type="text"/>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="layui-form-item">-->
-                <!--<label class="layui-form-label">权限</label>-->
-                <!--<div class="layui-input-inline">-->
-                    <!--<select name="permissions"  xm-select="permissions">-->
-
-                    <!--</select>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="layui-form-item">-->
-                <!--<div class="layui-input-block" style="margin-left: 10px;">-->
-                    <!--<button class="layui-btn" type="button" lay-submit="" lay-filter="roleSubmit">提交</button>-->
-                    <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
-                <!--</div>-->
-            <!--</div>-->
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">备注</label>
+                <div class="layui-input-block">
+                    <textarea name="remark"  placeholder="请输入备注" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin-left: 10px;">
+                    <button class="layui-btn" type="button" lay-submit="" lay-filter="billSubmit">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
         </form>
     </div>
 

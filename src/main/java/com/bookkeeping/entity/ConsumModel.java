@@ -14,11 +14,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @author dongwn
- * @since 2020-06-28
+ * @since 2020-07-17
  */
 @Data
-@TableName("t_bill")
-public class BillModel {
+@TableName("t_consum")
+public class ConsumModel {
+
 
     @TableId(value = "id", type = IdType.UUID)
     private String id;
@@ -32,26 +33,19 @@ public class BillModel {
     @TableField(value = "details")
     private String details;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(value = "consum_time")
+    private Date consumTime;
+
     @TableField(value = "type")
     private Integer type;
-
-    @TableField(value = "tableNo")
-    private Integer tableNo;
-
-    @TableField(value = "peopleNum")
-    private Integer peopleNum;
 
     @TableField(value = "remark")
     private String remark;
 
     @TableField(value = "is_deleted")
     private Integer isDeleted;
-
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @TableField(value = "bill_time")
-    private Date billTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -68,6 +62,10 @@ public class BillModel {
 
     @TableField(value = "update_by")
     private String updateBy;
+
+
+
+
 
 
 }

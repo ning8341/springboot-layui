@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bookkeeping.mapper.BillMapper">
+<mapper namespace="com.bookkeeping.mapper.ConsumMapper">
 
      <!-- 通用查询映射结果 -->
-     <resultMap id="BaseResultMap" type="com.bookkeeping.entity.BillModel">
+     <resultMap id="BaseResultMap" type="com.bookkeeping.entity.ConsumModel">
            <id column="id" property="id" />
            <result column="title" property="title" />
            <result column="price" property="price" />
            <result column="details" property="details" />
+           <result column="consum_time" property="consumTime" />
            <result column="type" property="type" />
-           <result column="tableNo" property="tableNo" />
-           <result column="peopleNum" property="peopleNum" />
            <result column="remark" property="remark" />
-           <result column="bill_time" property="billTime" />
            <result column="is_deleted" property="isDeleted" />
            <result column="create_time" property="createTime" />
            <result column="create_by" property="createBy" />
