@@ -16,7 +16,7 @@ public class Result {
         return temp;
     }
 
-    public static Map<String, Object> ok( String message) {
+    public static Map<String, Object> ok(String message) {
         Map<String, Object> temp = new ConcurrentHashMap<String, Object>();
         temp.put("code", "1");
         temp.put("msg", message);
@@ -43,6 +43,14 @@ public class Result {
         Map<String, Object> msgMap = new ConcurrentHashMap<String, Object>();
         msgMap.put("code", code);
         msgMap.put("msg", message);
+        return msgMap;
+    }
+
+    public static Map<String, Object> ok(Object o) {
+        Map<String, Object> msgMap = new ConcurrentHashMap<String, Object>();
+        msgMap.put("code", "200");
+        msgMap.put("msg", "成功");
+        msgMap.put("data", o);
         return msgMap;
     }
 
