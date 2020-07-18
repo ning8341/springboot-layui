@@ -33,7 +33,7 @@ public class RoleController {
 
     @GetMapping("/roleList")
     public String roleList() {
-        return "/role/roleList";
+        return "role/roleList";
 
     }
 

@@ -29,7 +29,7 @@ public class BillController {
      */
     @GetMapping("/billList")
     public String toBlogPage() {
-        return "/bill/billList";
+        return "bill/billList";
     }
 
 

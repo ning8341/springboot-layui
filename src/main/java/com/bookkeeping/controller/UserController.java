@@ -32,7 +32,7 @@ public class UserController {
 
     @GetMapping("/userList")
     public String userManage() {
-        return "/user/userList";
+        return "user/userList";
     }
 
     @PostMapping("/list")

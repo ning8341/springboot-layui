@@ -35,7 +35,7 @@ public class PermissionController {
 
     @GetMapping("/permissionList")
     public String roleList() {
-        return "/permission/permissionList";
+        return "permission/permissionList";
 
     }
 

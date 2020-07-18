@@ -32,7 +32,7 @@ public class ConsumController {
 
     @GetMapping("/consumList")
     public String toBlogPage() {
-        return "/consum/consumList";
+        return "consum/consumList";
     }
 
     @PostMapping("/consumList")
