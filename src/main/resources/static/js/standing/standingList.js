@@ -17,7 +17,10 @@ $(function () {
                     elem: '#end'
                     ,type: 'date'
                 });
-
+                laydate.render({
+                    elem: '#billTime'
+                    ,type: 'date'
+                });
                 BillList.initList();
 
                 $('.search_btn').click(function () {
@@ -59,15 +62,9 @@ $(function () {
                     },
                     cols: [[
                         {type: 'checkbox', fixed: 'left'}
-                        , {field: 'createTime', title: '记账日期', align: 'center'}
-                        , {field: 'cashIn', title: '现金收入', align: 'center', style: " color: #008000;font-size:20px;"}
-                        , {field: 'cardIn', title: '刷卡收入', align: 'center', style: " color: #008000;font-size:20px;"}
-                        , {field: 'unionpayIn', title: '银联收入', align: 'center', style: " color: #008000;font-size:20px;"}
-                        , {field: 'publicIn', title: '大众点评收入', align: 'center', style: " color: #008000;font-size:20px;"}
-                        , {field: 'elmIn', title: '饿了么收入', align: 'center', style: " color: #008000;font-size:20px;"}
-                        , {field: 'meituanIn', title: '美团收入', align: 'center', style: " color: #008000;font-size:20px;"}
-                        , {field: 'cashOut', title: '现金支出', align: 'center', style: " color: #FC764C;font-size:20px;"}
-                        , {field: 'cardOut', title: '刷卡支出', align: 'center', style: " color: #FC764C;font-size:20px;"}
+                        , {field: 'billTime', title: '记账日期', align: 'center'}
+                        , {field: 'realIn', title: '收入', align: 'center', style: " color: #008000;font-size:20px;"}
+                        , {field: 'realOut', title: '支出', align: 'center', style: " color: #008000;font-size:20px;"}
                         , {field: 'total', title: '当日总收入', align: 'center', style: " color: #008000;font-size:20px;"}
                         , {field: 'remark', title: '记账备注', align: 'center'}
                     ]],
@@ -82,13 +79,11 @@ $(function () {
                             url: "/standing/calculat",
                             contentType: "application/json",
                             success: function (res) {
-                                console.log("res---------",res)
                                 if (res.code == 200) {
                                     layer.closeAll();
                                     $('#calculat-in').val(res.data.tatalIn);
                                     $('#calculat-out').val(res.data.tatalOut);
                                     $('#calculat-total').val(res.data.total);
-
                                 }
                             },
                             error: function () {
@@ -98,7 +93,6 @@ $(function () {
                                 });
                             }
                         });
-
                     },
                     contentType: "application/json"
                 });

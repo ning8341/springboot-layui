@@ -58,56 +58,26 @@
     <!--添加-->
     <div id="setBill" class="layer_self_wrap" style="width:500px;display:none;">
         <form id="roleForm" class="layui-form layui-form-pane" method="post" action="" style="margin-top: 20px;">
-
             <div class="layui-form-item">
-                <label class="layui-form-label" style="color: #00d20d">现金收入</label>
+                <label class="layui-form-label">选择时间</label>
                 <div class="layui-input-inline">
-                    <input id="cashIn" name="cashIn" autocomplete="off" class="layui-input" type="text"/>
+                    <input id="billTime" name="billTime" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="color: #00d20d">收入</label>
+                <div class="layui-input-inline">
+                    <input id="realIn" name="realIn" autocomplete="off" class="layui-input" type="text"/>
                 </div>
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label" style="color: #00d20d">刷卡收入</label>
+                <label class="layui-form-label" >支出</label>
                 <div class="layui-input-inline">
-                    <input id="cardIn" name="cardIn" autocomplete="off" class="layui-input" type="text"/>
+                    <input id="realOut" name="realOut" autocomplete="off" class="layui-input" type="text"/>
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" style="color: #00d20d">银联收入</label>
-                <div class="layui-input-inline">
-                    <input id="unionpayIn" name="unionpayIn" autocomplete="off" class="layui-input" type="text"/>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" style="color: #00d20d">大众点评</label>
-                <div class="layui-input-inline">
-                    <input id="publicIn" name="publicIn" autocomplete="off" class="layui-input" type="text"/>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" style="color: #00d20d">饿了么收入</label>
-                <div class="layui-input-inline">
-                    <input id="elmIn" name="elmIn" autocomplete="off" class="layui-input" type="text"/>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" style="color: #00d20d">美团收入</label>
-                <div class="layui-input-inline">
-                    <input id="meituanIn" name="meituanIn" autocomplete="off" class="layui-input" type="text"/>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" style="color: #d32f2f">现金支出</label>
-                <div class="layui-input-inline">
-                    <input id="cashOut" name="cashOut" autocomplete="off" class="layui-input" type="text"/>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" style="color: #d32f2f">刷卡支出</label>
-                <div class="layui-input-inline">
-                    <input id="cardOut" name="cardOut" autocomplete="off" class="layui-input" type="text"/>
-                </div>
-            </div>
+
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">备注</label>
                 <div class="layui-input-block">

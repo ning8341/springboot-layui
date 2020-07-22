@@ -24,29 +24,11 @@ public class StandingModel {
     @TableId(value = "id", type = IdType.UUID)
     private String id;
 
-    @TableField(value = "cash_in")
-    private Double cashIn;
+    @TableField(value = "real_in")
+    private Double realIn;
 
-    @TableField(value = "cash_out")
-    private Double cashOut;
-
-    @TableField(value = "card_in")
-    private Double cardIn;
-
-    @TableField(value = "card_out")
-    private Double cardOut;
-
-    @TableField(value = "unionpay_in")
-    private Double unionpayIn;
-
-    @TableField(value = "public_in")
-    private Double publicIn;
-
-    @TableField(value = "elm_in")
-    private Double elmIn;
-
-    @TableField(value = "meituan_in")
-    private Double meituanIn;
+    @TableField(value = "real_out")
+    private Double realOut;
 
     @TableField(value = "total")
     private Double total;
@@ -56,6 +38,13 @@ public class StandingModel {
 
     @TableField(value = "is_deleted")
     private Integer isDeleted;
+
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @TableField(value = "bill_time")
+    private Date billTime;
+
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

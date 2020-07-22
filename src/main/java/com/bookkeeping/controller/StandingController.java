@@ -2,6 +2,7 @@ package com.bookkeeping.controller;
 
 
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.UUID;
 import com.bookkeeping.entity.StandingModel;
 import com.bookkeeping.entity.UserModel;
@@ -15,6 +16,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
@@ -55,49 +57,20 @@ public class StandingController {
     @ResponseBody
     public Map<String, Object> list(@RequestBody List<StandingModel> standingModelList) {
         Map<String, Object> resMap = new HashMap<>();
-        Double cashIn=0.0;
-        Double cardIn=0.0;
-        Double unionpayIn=0.0;
-        Double publicIn=0.0;
-        Double elmIn=0.0;
-        Double meituanIn=0.0;
-        Double total=0.0;
-        Double cashOut=0.0;
-        Double cardOut=0.0;
-        Double tatalIn=0.0;
-        Double tatalOut=0.0;
-       for(StandingModel standingModel:standingModelList){
-           if(!StringUtils.isEmpty(standingModel.getCashIn())){
-               cashIn+=standingModel.getCashIn();
-           }
-           if(!StringUtils.isEmpty(standingModel.getCardIn())){
-               cardIn+=standingModel.getCardIn();
-           }
-           if(!StringUtils.isEmpty(standingModel.getUnionpayIn())){
-               unionpayIn+=standingModel.getUnionpayIn();
-           }
-           if(!StringUtils.isEmpty(standingModel.getPublicIn())){
-               publicIn+=standingModel.getPublicIn();
-           }
-           if(!StringUtils.isEmpty(standingModel.getElmIn())){
-               elmIn+=standingModel.getElmIn();
-           }
-           if(!StringUtils.isEmpty(standingModel.getMeituanIn())){
-               meituanIn+=standingModel.getMeituanIn();
-           }
-           if(!StringUtils.isEmpty(standingModel.getCashOut())){
-               cashOut+=standingModel.getCashOut();
-           }
-           if(!StringUtils.isEmpty(standingModel.getCardOut())){
-               cardOut+=standingModel.getCardOut();
-           }
-       }
-        tatalIn=cashIn+cardIn+unionpayIn+publicIn+elmIn+meituanIn;
-        tatalOut=cashOut+cardOut;
-        total =tatalIn-tatalOut;
-        resMap.put("total",total);
-        resMap.put("tatalOut",tatalOut);
-        resMap.put("tatalIn",tatalIn);
+        Double realIn = 0.0;
+        Double realOut = 0.0;
+        for (StandingModel standingModel : standingModelList) {
+            if (!StringUtils.isEmpty(standingModel.getRealIn())) {
+                realIn += standingModel.getRealIn();
+            }
+            if (!StringUtils.isEmpty(standingModel.getRealOut())) {
+                realOut += standingModel.getRealOut();
+            }
+        }
+        Double total = realIn - realOut;
+        resMap.put("total", total);
+        resMap.put("tatalOut", realOut);
+        resMap.put("tatalIn", realIn);
         return Result.ok(resMap);
     }
 
@@ -115,15 +88,9 @@ public class StandingController {
     }
 
     public Double getTotal(StandingModel standingModel) {
-        double cashIn = !StringUtils.isEmpty(standingModel.getCashIn()) ? Convert.toDouble(standingModel.getCashIn()) : 0.0;
-        double cashOut = !StringUtils.isEmpty(standingModel.getCashOut()) ? Convert.toDouble(standingModel.getCashOut()) : 0.0;
-        double cardIn = !StringUtils.isEmpty(standingModel.getCardIn()) ? Convert.toDouble(standingModel.getCardIn()) : 0.0;
-        double cardOut = !StringUtils.isEmpty(standingModel.getCardOut()) ? Convert.toDouble(standingModel.getCardOut()) : 0.0;
-        double unionpayIn = !StringUtils.isEmpty(standingModel.getUnionpayIn()) ? Convert.toDouble(standingModel.getUnionpayIn()) : 0.0;
-        double publicIn = !StringUtils.isEmpty(standingModel.getPublicIn()) ? Convert.toDouble(standingModel.getPublicIn()) : 0.0;
-        double elmIn = !StringUtils.isEmpty(standingModel.getElmIn()) ? Convert.toDouble(standingModel.getElmIn()) : 0.0;
-        double meituanIn = !StringUtils.isEmpty(standingModel.getMeituanIn()) ? Convert.toDouble(standingModel.getMeituanIn()) : 0.0;
-        double total = cashIn - cashOut + cardIn - cardOut + unionpayIn + publicIn + elmIn + meituanIn;
+        double realIn = !StringUtils.isEmpty(standingModel.getRealIn()) ? Convert.toDouble(standingModel.getRealIn()) : 0.0;
+        double realOut = !StringUtils.isEmpty(standingModel.getRealOut()) ? Convert.toDouble(standingModel.getRealOut()) : 0.0;
+        double total = realIn - realOut;
         return total;
     }
 
@@ -143,6 +110,22 @@ public class StandingController {
         }
         standingService.updateBatchById(standingModelList);
         return Result.ok("操作成功");
+    }
+
+    @GetMapping("/getInfo")
+    @ResponseBody
+    public Map<String, Object> getInfo() {
+        int year = DateUtil.year(new Date());
+        Map<String, Object> dataMap = new ConcurrentHashMap<>();
+        List<Map<String, Object>> resList = standingService.queryData(year);
+        int[] array = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        for (Map<String, Object> map : resList) {
+            int index = Convert.toInt(map.get("MONTH"));
+            array[index-1] = Convert.toInt(map.get("number"));
+        }
+        dataMap.put("year", year);
+        dataMap.put("array", array);
+        return Result.ok(dataMap);
     }
 
 

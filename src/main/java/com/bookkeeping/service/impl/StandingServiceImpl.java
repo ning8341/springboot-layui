@@ -10,6 +10,7 @@ import com.bookkeeping.entity.StandingModel;
 import com.bookkeeping.mapper.StandingMapper;
 import com.bookkeeping.service.StandingService;
 import com.bookkeeping.util.PageModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -28,6 +29,8 @@ import java.util.Map;
  */
 @Service
 public class StandingServiceImpl extends ServiceImpl<StandingMapper, StandingModel> implements StandingService {
+    @Autowired
+    private StandingMapper standingMapper;
 
     @Override
     public Page<StandingModel> findPage(PageModel<StandingModel> pageModel) {
@@ -35,7 +38,10 @@ public class StandingServiceImpl extends ServiceImpl<StandingMapper, StandingMod
         return (Page<StandingModel>) super.page(pageModel, wrapper);
     }
 
-
+    @Override
+    public List<Map<String, Object>> queryData(int year) {
+        return standingMapper.selectDate(year);
+    }
 
 
     private QueryWrapper<StandingModel> commonWrapper(PageModel<StandingModel> pageModel) {
@@ -48,12 +54,12 @@ public class StandingServiceImpl extends ServiceImpl<StandingMapper, StandingMod
                 if ("start".equals(k)) {
                     String startDate = Convert.toStr(v) + " 00:00:00";
                     Date start = DateUtil.parse(startDate);
-                    wrapper.ge("create_time", start);
+                    wrapper.ge("bill_time", start);
                 }
                 if ("end".equals(k)) {
                     String endDate = Convert.toStr(v) + " 23:59:59";
                     Date end = DateUtil.parse(endDate);
-                    wrapper.le("create_time", end);
+                    wrapper.le("bill_time", end);
                 }
             }
         });
