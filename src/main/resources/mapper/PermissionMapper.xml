@@ -9,6 +9,7 @@
         <result column="pid" property="pid"/>
         <result column="descpt" property="descpt"/>
         <result column="url" property="url"/>
+        <result column="sort" property="sort"/>
         <result column="is_deleted" property="isDeleted"/>
         <result column="create_time" property="createTime"/>
         <result column="create_by" property="createBy"/>

@@ -37,6 +37,9 @@ public class PermissionModel {
     @TableField(value = "url")
     private String url;
 
+    @TableField(value = "sort")
+    private Integer sort;
+
     @TableField(value = "is_deleted")
     private Integer isDeleted;
 

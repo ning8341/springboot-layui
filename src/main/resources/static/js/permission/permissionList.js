@@ -66,6 +66,7 @@ $(function () {
                         {field:'name', title:'菜单名称',align:'center'}
                         ,{field:'descpt', title:'描述',align:'center'}
                         ,{field:'url', title:'菜单url',align:'center'}
+                        ,{field:'sort', title:'排序',align:'center'}
                         ,{field:'createTime', title:'创建时间',align:'center'}
                         ,{field:'updateTime', title:'更新时间',align:'center'}
                         ,{fixed:'right',title:'操作',align:'center', toolbar:'#optBar'}
@@ -123,14 +124,16 @@ $(function () {
             },
             commonOpen: function (data, title) {
                 var parentId = null;
+                console.log("data====》》》》》"+data)
                 if(data == null){
                     $("#id").val("");
                 }else{
                     //回显数据
-                    $("#id").val(data.id);
-                    $("#name").val(data.name);
-                    $("#descpt").val(data.descpt);
-                    $("#url").val(data.url);
+                    for (var i in data) {
+                        if($("#" + i).attr("type")=="text" || $("#" + i).attr("type")=="hidden" ){
+                            $("#" + i).val(data[i]);
+                        }
+                    }
                     parentId = data.pid;
                 }
                 var pageNum = $(".layui-laypage-skip").find("input").val();

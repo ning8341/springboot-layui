@@ -17,7 +17,7 @@
                 <a class="layui-btn search_btn">查询</a>
             </div>
             <div class="layui-inline">
-                <a class="layui-btn layui-btn-normal add_btn" >添加权限</a>
+                <a class="layui-btn layui-btn-normal add_btn" >添加菜单</a>
             </div>
             <div class="layui-inline">
                 <a class="layui-btn layui-btn-danger batchDel_btn">批量删除</a>
@@ -51,19 +51,25 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">菜单名称</label>
                 <div class="layui-input-inline">
-                    <input id="name" name="name" lay-verify="required" autocomplete="off" class="layui-input" type="text"/>
+                    <input id="name" name="name" lay-verify="required" autocomplete="off" class="layui-input flush-class" type="text"/>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">描述</label>
                 <div class="layui-input-inline">
-                    <input id="descpt" name="descpt" lay-verify="required" autocomplete="off" class="layui-input" type="text"/>
+                    <input id="descpt" name="descpt" lay-verify="required" autocomplete="off" class="layui-input flush-class" type="text"/>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">菜单url</label>
                 <div class="layui-input-inline">
-                    <input id="url" name="url" autocomplete="off" class="layui-input" type="text"/>
+                    <input id="url" name="url" autocomplete="off" class="layui-input flush-class" type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">排序</label>
+                <div class="layui-input-inline">
+                    <input id="sort" name="sort" autocomplete="off" class="layui-input flush-class" type="text"/>
                 </div>
             </div>
             <div class="layui-form-item">

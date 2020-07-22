@@ -45,13 +45,16 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
             String permissions = role.getPermissions();
             String[] ids = permissions.split(",");
             List<PermissionModel> permissionList = new ArrayList<>();
-            for (String id : ids) {
-                // 角色对应的权限数据
-                PermissionModel permissionModel = permissionMapper.selectById(id);
-                if (null != permissionModel) {
-                    //获取子权限
+
+            QueryWrapper<PermissionModel> wwrapper = new QueryWrapper<PermissionModel>();
+            wwrapper.eq("is_deleted", 0);
+            wwrapper.in("id", ids);
+            wwrapper.orderByAsc("sort");
+            List<PermissionModel> dataList = permissionMapper.selectList(wwrapper);
+            if (null != dataList && dataList.size() > 0) {
+                for (PermissionModel permissionModel : dataList) {
                     QueryWrapper<PermissionModel> wrapper = new QueryWrapper<PermissionModel>();
-                    wrapper.lambda().eq(PermissionModel::getIsDeleted, 0).eq(PermissionModel::getPid, permissionModel.getId());
+                    wrapper.lambda().eq(PermissionModel::getIsDeleted, 0).eq(PermissionModel::getPid, permissionModel.getId()).orderByAsc(PermissionModel::getSort);
                     List<PermissionModel> children = permissionMapper.selectList(wrapper);
                     permissionModel.setChildrens(children);
                     permissionList.add(permissionModel);
