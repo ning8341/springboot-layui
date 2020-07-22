@@ -1,5 +1,5 @@
 $(function () {
-    layui.use(['table', 'layer', 'form','laydate'], function () {
+    layui.use(['table', 'layer', 'form', 'laydate'], function () {
         var table = layui.table,
             layer = layui.layer,
             form = layui.form,
@@ -9,32 +9,32 @@ $(function () {
             tableIns: "",
             pageCurr: "",
             init: function () {
-                //初始化时间
                 laydate.render({
-                    elem: '#billTime', //指定元素
-                    type:'datetime'
+                    elem: '#start'
+                    ,type: 'date'
                 });
+                laydate.render({
+                    elem: '#end'
+                    ,type: 'date'
+                });
+
                 BillList.initList();
 
                 $('.search_btn').click(function () {
                     BillList.commonSearch();
                 });
-                //回车--->执行搜索
                 $(document).keydown(function (event) {
                     if (event.keyCode == 13) {
                         BillList.commonSearch();
                     }
                 });
-
                 $('.add_btn').click(function () {
                     BillList.commonOpen(null, "录入账单");
                 });
-
                 form.on('submit(billSubmit)', function (data) {
                     BillList.commonSubmit(data);
                     return false;
                 });
-
                 $('.batchDel_btn').click(function () {
                     BillList.commonDelete();
                 })
@@ -43,7 +43,7 @@ $(function () {
                 BillList.tableIns = table.render({
                     toolbar: true,
                     elem: '#billList',
-                    url: '/bill/billList',
+                    url: '/standing/standingList',
                     method: 'post',
                     cellMinWidth: 80,
                     page: true,
@@ -59,34 +59,58 @@ $(function () {
                     },
                     cols: [[
                         {type: 'checkbox', fixed: 'left'}
-                        ,{field:'title', title:'订单名称',align:'center'}
-                        ,{field:'tableNo', title:'桌位号',align:'center'}
-                        ,{field:'peopleNum', title:'用餐人数',align:'center'}
-                        ,{field:'price', title:'本单费用(单位:元)',align:'center'}
-                        ,{field:'billTime', title:'订单时间',align:'center'}
-                        ,{field:'createTime', title:'创建时间',align:'center'}
-
+                        , {field: 'createTime', title: '记账日期', align: 'center'}
+                        , {field: 'cashIn', title: '现金收入', align: 'center', style: " color: #008000;font-size:20px;"}
+                        , {field: 'cardIn', title: '刷卡收入', align: 'center', style: " color: #008000;font-size:20px;"}
+                        , {field: 'unionpayIn', title: '银联收入', align: 'center', style: " color: #008000;font-size:20px;"}
+                        , {field: 'publicIn', title: '大众点评收入', align: 'center', style: " color: #008000;font-size:20px;"}
+                        , {field: 'elmIn', title: '饿了么收入', align: 'center', style: " color: #008000;font-size:20px;"}
+                        , {field: 'meituanIn', title: '美团收入', align: 'center', style: " color: #008000;font-size:20px;"}
+                        , {field: 'cashOut', title: '现金支出', align: 'center', style: " color: #FC764C;font-size:20px;"}
+                        , {field: 'cardOut', title: '刷卡支出', align: 'center', style: " color: #FC764C;font-size:20px;"}
+                        , {field: 'total', title: '当日总收入', align: 'center', style: " color: #008000;font-size:20px;"}
+                        , {field: 'remark', title: '记账备注', align: 'center'}
                     ]],
                     done: function (res, curr, count) {
-                        $("[data-field='userStatus']").children().each(function () {
-                            if ($(this).text() == '1') {
-                                $(this).text("有效")
-                            } else if ($(this).text() == '0') {
-                                $(this).text("失效")
-                            }
-                        });
                         //得到数据总量
                         BillList.pageCurr = curr;
+                        //这块应该前端处理数据，偷懒发个请求后台处理了数据，感兴趣可以找找前端怎么写
+                        $.ajax({
+                            type: "POST",
+                            async:false,
+                            data: JSON.stringify(res.list),
+                            url: "/standing/calculat",
+                            contentType: "application/json",
+                            success: function (res) {
+                                console.log("res---------",res)
+                                if (res.code == 200) {
+                                    layer.closeAll();
+                                    $('#calculat-in').val(res.data.tatalIn);
+                                    $('#calculat-out').val(res.data.tatalOut);
+                                    $('#calculat-total').val(res.data.total);
+
+                                }
+                            },
+                            error: function () {
+                                layer.alert("操作请求错误，请您稍后再试", function () {
+                                    layer.closeAll();
+                                    BillList.initList();
+                                });
+                            }
+                        });
+
                     },
                     contentType: "application/json"
                 });
             },
             commonSearch: function () {
-                var searchKey = $('.search_input').val();
+                var startInput = $('.start_input').val();
+                var endInput = $('.end_input').val();
                 BillList.tableIns.reload({
                     where: { //设定异步数据接口的额外参数，任意设
                         condition: {
-                            title: searchKey
+                            start: startInput,
+                            end:endInput
                         }
                     },
                     page: {
@@ -98,7 +122,7 @@ $(function () {
                 $.ajax({
                     type: "POST",
                     data: JSON.stringify(data.field),
-                    url: "/bill/save",
+                    url: "/standing/save",
                     contentType: "application/json",
                     success: function (res) {
                         if (res.code == 1) {
@@ -120,9 +144,9 @@ $(function () {
             },
             commonOpen: function (data, title) {
                 var parentId = null;
-                if(data == null){
+                if (data == null) {
                     $("#id").val("");
-                }else{
+                } else {
                     //回显数据
                     $("#id").val(data.id);
                     $("#name").val(data.name);
@@ -134,22 +158,28 @@ $(function () {
                 $("#pageNum").val(pageNum);
 
                 layer.open({
-                    type:1,
+                    type: 1,
                     title: title,
-                    fixed:false,
-                    resize :false,
+                    fixed: false,
+                    resize: false,
                     shadeClose: true,
                     area: ['550px'],
-                    content:$('#setBill'),
-                    end:function(){
+                    content: $('#setBill'),
+                    end: function () {
                         BillList.commonClean();
                     }
                 });
             },
             commonClean: function () {
-                $("#name").val("");
-                $("#descpt").val("");
-                $("#url").val("");
+                $("#cashIn").val("");
+                $("#cardIn").val("");
+                $("#unionpayIn").val("");
+                $("#publicIn").val("");
+                $("#elmIn").val("");
+                $("#meituanIn").val("");
+                $("#cashOut").val("");
+                $("#cardOut").val("");
+                $("#remark").val("");
             },
             commonDelete: function () {
                 var checkStatus = table.checkStatus('billList');
@@ -166,7 +196,7 @@ $(function () {
                     }
                     $.ajax({
                         type: 'delete',
-                        url: '/bill/delBatchByIds',
+                        url: '/standing/delBatchByIds',
                         data: JSON.stringify(ids),
                         contentType: "application/json",
                         success: function (data) {

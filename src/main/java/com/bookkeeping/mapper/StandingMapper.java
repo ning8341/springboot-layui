@@ -1,8 +1,7 @@
 package com.bookkeeping.mapper;
 
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.bookkeeping.entity.ConsumModel;
+import com.bookkeeping.entity.StandingModel;
 
 /**
  * <p>
@@ -10,8 +9,8 @@ import com.bookkeeping.entity.ConsumModel;
  * </p>
  *
  * @author dongwn
- * @since 2020-07-17
+ * @since 2020-07-21
  */
-public interface ConsumMapper extends BaseMapper<ConsumModel> {
+public interface StandingMapper extends BaseMapper<StandingModel> {
 
 }

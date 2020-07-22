@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bookkeeping.mapper.StandingMapper">
+
+     <!-- 通用查询映射结果 -->
+     <resultMap id="BaseResultMap" type="com.bookkeeping.entity.StandingModel">
+           <id column="id" property="id" />
+           <result column="cash_in" property="cashIn" />
+           <result column="cash_out" property="cashOut" />
+           <result column="card_in" property="cardIn" />
+           <result column="card_out" property="cardOut" />
+           <result column="unionpay_in" property="unionpayIn" />
+           <result column="public_in" property="publicIn" />
+           <result column="elm_in" property="elmIn" />
+           <result column="meituan_in" property="meituanIn" />
+           <result column="total" property="total" />
+           <result column="remark" property="remark" />
+           <result column="is_deleted" property="isDeleted" />
+           <result column="create_time" property="createTime" />
+           <result column="create_by" property="createBy" />
+           <result column="update_time" property="updateTime" />
+           <result column="update_by" property="updateBy" />
+     </resultMap>
+
+</mapper>

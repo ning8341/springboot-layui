@@ -40,7 +40,7 @@ public class RoleModel {
     private Integer isDeleted;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @TableField(value = "create_time")
     private Date createTime;
 
@@ -48,7 +48,7 @@ public class RoleModel {
     private String createBy;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @TableField(value = "update_time")
     private Date updateTime;
 

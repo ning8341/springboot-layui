@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="/css/formSelects-v4.css"/>
+<head th:include="layout :: htmlhead" th:with="title='文章'"></head>
+<script type="text/javascript" src="/js/dateUtils.js"></script>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <!--头-->
+    <div th:replace="fragments/head :: header"></div>
+
+    <div class="layui-body" style="margin: 1%">
+
+        <blockquote class="layui-elem-quote news_search">
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input id="start" name="start" placeholder="开始时间" class="layui-input start_input" type="text"/>
+                </div>
+                <div class="layui-input-inline">
+                    <input id="end" name="end" placeholder="结束时间" class="layui-input end_input" type="text"/>
+                </div>
+                <a class="layui-btn search_btn">查询</a>
+            </div>
+            <div class="layui-inline">
+                <a class="layui-btn layui-btn-normal add_btn">记账</a>
+            </div>
+            <div class="layui-inline">
+                <a class="layui-btn layui-btn-danger batchDel_btn">批量删除</a>
+            </div>
+        </blockquote>
+
+        <blockquote class="layui-elem-quote news_search">
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <label class="layui-form-label" style="color: #00d20d">总收入</label>
+                    <div class="layui-input-inline">
+                        <input id="calculat-in" autocomplete="off" class="layui-input" type="text"/>
+                    </div>
+                </div>
+                <div class="layui-input-inline">
+                    <label class="layui-form-label" style="color: #d32f2f">总支出</label>
+                    <div class="layui-input-inline">
+                        <input id="calculat-out" autocomplete="off" class="layui-input" type="text"/>
+                    </div>
+                </div>
+                <div class="layui-input-inline">
+                    <label class="layui-form-label" style="color: #00d20d">收益</label>
+                    <div class="layui-input-inline">
+                        <input id="calculat-total" autocomplete="off" class="layui-input" type="text"/>
+                    </div>
+                </div>
+            </div>
+        </blockquote>
+
+
+        <table id="billList" lay-filter="billTable"></table>
+    </div>
+
+    <!--添加-->
+    <div id="setBill" class="layer_self_wrap" style="width:500px;display:none;">
+        <form id="roleForm" class="layui-form layui-form-pane" method="post" action="" style="margin-top: 20px;">
+
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="color: #00d20d">现金收入</label>
+                <div class="layui-input-inline">
+                    <input id="cashIn" name="cashIn" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="color: #00d20d">刷卡收入</label>
+                <div class="layui-input-inline">
+                    <input id="cardIn" name="cardIn" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="color: #00d20d">银联收入</label>
+                <div class="layui-input-inline">
+                    <input id="unionpayIn" name="unionpayIn" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="color: #00d20d">大众点评</label>
+                <div class="layui-input-inline">
+                    <input id="publicIn" name="publicIn" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="color: #00d20d">饿了么收入</label>
+                <div class="layui-input-inline">
+                    <input id="elmIn" name="elmIn" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="color: #00d20d">美团收入</label>
+                <div class="layui-input-inline">
+                    <input id="meituanIn" name="meituanIn" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="color: #d32f2f">现金支出</label>
+                <div class="layui-input-inline">
+                    <input id="cashOut" name="cashOut" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="color: #d32f2f">刷卡支出</label>
+                <div class="layui-input-inline">
+                    <input id="cardOut" name="cardOut" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">备注</label>
+                <div class="layui-input-block">
+                    <textarea name="remark" id="remark" placeholder="请输入备注" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin-left: 10px;">
+                    <button class="layui-btn" type="button" lay-submit="" lay-filter="billSubmit">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!--底部-->
+    <div th:replace="fragments/footer :: footer"></div>
+    <script src="/js/standing/standingList.js"></script>
+
+</div>
+</body>
+</html>

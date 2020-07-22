@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,7 +28,8 @@ public class UserModel {
     
     @TableField(value = "name")
     private String name; 
-    
+
+    @JsonIgnore
     @TableField(value = "pwd")
     private String pwd; 
     
@@ -46,7 +49,7 @@ public class UserModel {
     private Integer isDeleted;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @TableField(value = "create_time")
     private Date createTime; 
     
@@ -54,7 +57,7 @@ public class UserModel {
     private String createBy;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @TableField(value = "update_time")
     private Date updateTime; 
     
