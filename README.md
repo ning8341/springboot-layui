@@ -3,20 +3,44 @@
 > 本次搭建是基于springboot+layui+nginx实现的前后台分离的设计
 >
 > 1. orm依旧采用了熟悉的mybatisplus 3.1.2
+>
 > 2. 集成druid（账号密码admin），访问地址   http://localhost:8080/druid/index.html  
+>
 > 3. 集成shiro+jwt，详细查看第三段的图解说明
+>
 > 4. 配置nginx，指定前端代码
+>
 > 5. 集成redis，将用户信息以及权限记录到缓存数据库中
+>
 > 6. 前端集成layuicms，目前只是登录，《用户中心》模块简单的分页列表，其余模块均是假数据
+>
 > 7. 前端登录处理逻辑请自行跟踪代码，比较简单的流程
+>
 > 8. 后端设置缓存到期时间为30分钟，前端的缓存放到localstorage
+>
 > 9. 定制layui的table.js修改了请求自动添加headers(headers中带token)
+>
+> 10. 代码生成，参考第六段
+>
+> 11. 常规layui的使用请参考我csdn
+>
+>     [这篇博客]: https://blog.csdn.net/m0_37615458/article/details/106961372
+>
+>     
 
 ### 二、环境准备
 
 > - redis环境自行搭建，不再赘述。
+>
 > - mysql环境自行搭建，sql脚本在/resources/sql/bbs.sql
+>
 > - nginx自行搭建，配置如下
+>
+> - [前端代码]: https://github.com/ning8341/frontend_springboot_layui
+>
+> - [后端代码]: 
+>
+>   
 
 ```
 #nginx配置示例
@@ -77,3 +101,29 @@ http {
 
 ### 五、前端演示
 
+**访问http://localhost:8000/   因为index检查了用户本地有无token缓存，因为没有，所以跳转登录页**
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201130171916405.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3NjE1NDU4,size_16,color_FFFFFF,t_70)
+
+**键入admin/123456执行登录，跳转index页面，请自行定制页面**
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201130172439430.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3NjE1NDU4,size_16,color_FFFFFF,t_70 )
+
+**用户中心截图**
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2020113017271731.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3NjE1NDU4,size_16,color_FFFFFF,t_70)
+
+### 六、代码生成
+
+**加入代码生成功能，自动生成后台代码，涉及到的代码生成截图**
+
+- 进入/generate/CodeGenerator.java运行main方法生成代码
+- UmpGeneratorUtil定制包名
+- generator.properties配置数据库信息，待操作表信息，文件生成路径配置等
+- templates为生成的模版，请自行定制模版
+
+> ![在这里插入图片描述](https://img-blog.csdnimg.cn/20201130173750172.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3NjE1NDU4,size_16,color_FFFFFF,t_70)
+>
+> 
+>
+> 
