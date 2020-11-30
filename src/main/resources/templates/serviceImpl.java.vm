@@ -1,0 +1,122 @@
+package ${cfg.serviceImplPackageName};
+
+import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+
+import ${cfg.modelPackageName}.${entity}Model;
+import ${cfg.mapperPackageName}.${table.mapperName};
+import ${cfg.servicePackageName}.${table.serviceName};
+##import ${superServiceImplClassPackage};
+import com.sgcc.business.utils.PageModel;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import com.sgcc.business.utils.CommonUtils;
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.StrUtil;
+/**
+ * <p>
+ * $!{table.comment} 服务实现类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+#if(${kotlin})
+open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}Model>(), ${table.serviceName} {
+    @Autowired
+	private ${table.mapperName} mapper;
+}
+#else
+public class ${table.serviceImplName} extends ServiceImpl<${table.mapperName}, ${entity}Model> implements ${table.serviceName} {
+    @Autowired
+	private ${table.mapperName} mapper;
+	
+	@Override
+	public List<${entity}Model> queryList(PageModel<${entity}Model> pageModel) {
+		Wrapper<${entity}Model> wrapper = commonWrapper(pageModel);
+		return super.selectList(wrapper);
+	}
+
+	@Override
+	public Page<${entity}Model> queryListByPage(PageModel<${entity}Model> pageModel) {
+		Wrapper<${entity}Model> wrapper = commonWrapper(pageModel);
+		return super.selectPage(pageModel, wrapper);
+	}
+	
+	@Override
+	public ${entity}Model selectById(Serializable id) {
+		return baseMapper.selectById(id);
+	}
+
+	@Override
+	public boolean insert(${entity}Model model) {
+		return retBool(baseMapper.insert(model));
+	}
+	
+	/*自动生成deleteBatchIds方法
+	 *需要注意entity的set和set是否报错，
+	 *如果报错则根据业务进行处理
+	 */
+	@Override
+	public boolean deleteBatchIds(Collection<? extends Serializable> idList) {
+		List<${entity}Model> list = new ArrayList<>();
+		idList.forEach(id -> {
+			${entity}Model model = new ${entity}Model();
+			/**注意set方法一致*/
+			model.setId(Convert.toStr(id));
+			model.setIsDeleted(1);
+			list.add(model);
+		});
+		return super.updateBatchById(list);
+	}
+	
+	private Wrapper<${entity}Model> commonWrapper(PageModel<${entity}Model> pageModel) {
+		Wrapper<CompanyModel> wrapper = WrapperUtil.commonWrapper();
+		/** 
+		* <p>
+ 		* 拼接条件demo
+ 		* </p>
+		Map<String, Object> paramMap = pageModel.getParamMap();
+		String name = "name";
+		String categoryId = "categoryId";
+		String sort = "sort";
+		paramMap.forEach((k, v) -> {
+			if (StrUtil.isNotBlank(v + "")) {
+				if (name.equals(k)) {
+					wrapper.like("name", StrUtil.toString(v));
+				} else if (categoryId.equals(k)) {
+					wrapper.eq("CATEGORY_ID", StrUtil.toString(v));
+				} else if (sort.equals(k)) {// sort有值开始操作sort
+					if (StrUtil.isNotEmpty(Convert.toStr(v))) {
+						String sortStr = Convert.toStr(v).trim();
+						if (sortStr.startsWith("-")) {
+							sortStr = sortStr.substring(1);
+							wrapper.orderBy(sortStr, false);
+						} else if (sortStr.startsWith("+")) {
+							sortStr = sortStr.substring(1);
+							wrapper.orderBy(sortStr, true);
+						}else{
+							wrapper.orderBy(sortStr, true);
+						}
+
+					}
+				}
+			}
+		});
+		*/
+		return wrapper;
+	}
+}
+#end

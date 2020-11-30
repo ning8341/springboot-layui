@@ -1,0 +1,135 @@
+package ${cfg.modelPackageName};
+
+#foreach($field in ${table.fields})
+    #if(${field.keyFlag})
+        #set($idpropertyType=${field.propertyType})
+    #end
+#end
+
+#foreach($pkg in ${table.importPackages})
+import ${pkg};
+#end
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+#if(${entityLombokModel})
+
+
+#end
+
+/**
+* @author ${author}
+* @since ${date}
+*/
+
+#if(${entityLombokModel})
+###if(${superEntityClass})
+##@EqualsAndHashCode(callSuper = true)
+###else
+##@EqualsAndHashCode(callSuper = false)
+###end
+##@Accessors(chain = true)
+#end
+@Data
+#if(${table.convert})
+@TableName("${table.name}")
+#end
+#if(${superEntityClass})
+public class ${entity}Model extends ${superEntityClass}#if(${activeRecord})<${entity}Model>#end {
+#elseif(${activeRecord})
+public class ${entity}Model extends Model<${entity}Model> {
+#else
+public class ${entity}Model {
+#end
+
+    private static final long serialVersionUID = 1L;
+
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+    #if(${field.keyFlag})
+    #set($keyPropertyName=${field.propertyName})
+    #end
+    #if(${field.keyFlag})
+    @TableId(value="${field.name}", type= IdType.UUID)
+    #else
+    @TableField(value = "${field.name}")
+    #end 
+    private ${field.propertyType} ${field.propertyName}; 
+    
+#end
+## ----------  END 字段循环遍历  ----------
+
+#if(!${entityLombokModel})
+    #foreach($field in ${table.fields})
+        #if(${field.propertyType.equals("boolean")})
+        #set($getprefix="is")
+        #else
+        #set($getprefix="get")
+        #end
+
+    public ${field.propertyType} ${getprefix}${field.capitalName}() {
+    return ${field.propertyName};
+    }
+
+        #if(${entityBuilderModel})
+        public ${entity} set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
+        #else
+        public void set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
+        #end
+    this.${field.propertyName} = ${field.propertyName};
+        #if(${entityBuilderModel})
+        return this;
+        #end
+    }
+    #end
+#end
+
+#if(${entityColumnConstant})
+    #foreach($field in ${table.fields})
+    public static final String ${field.name.toUpperCase()} = "${field.name}";
+
+    #end
+#end
+#if(${activeRecord})
+    @Override
+    protected Serializable pkVal() {
+        #if(${keyPropertyName})
+        return this.${keyPropertyName};
+        #else
+        return null;
+        #end
+    }
+#end
+
+
+## ## 直接生成toString方法
+## @Override
+##    public String toString() {
+##    return "${entity}{" +
+##        #foreach($field in ${table.fields})
+##            #if($!{velocityCount}==1)
+##            "${field.propertyName}=" + ${field.propertyName} +
+##            #else
+##            ", ${field.propertyName}=" + ${field.propertyName} +
+##            #end
+##        #end
+##    "}";
+##    }
+    
+## 直接生成get set 方法
+## #foreach($field in ${table.fields})
+##    public ${field.propertyType} get${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1,${field.propertyName.length()})}() {
+##		return ${field.propertyName};
+##	}
+##
+##	public void set${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1,${field.propertyName.length()})}( ${field.propertyType} ${field.propertyName} ) {
+##		this.${field.propertyName} = ${field.propertyName};
+##	}
+##
+##  #end
+    
+}
+
+

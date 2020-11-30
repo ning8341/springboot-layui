@@ -1,0 +1,25 @@
+package ${cfg.servicePackageName};
+
+import ${cfg.modelPackageName}.${entity}Model;
+import java.util.List;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.service.IService;
+import com.sgcc.business.utils.PageModel;
+/**
+ * <p>
+ * $!{table.comment} 服务类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${kotlin})
+interface ${table.serviceName} : ${superServiceClass}<${entity}Model>
+#else
+public interface ${table.serviceName} extends IService<${entity}Model>  {
+
+	List<${entity}Model> queryList(PageModel<${entity}Model> pageModel);
+
+	Page<${entity}Model> queryListByPage(PageModel<${entity}Model> page);
+}
+#end

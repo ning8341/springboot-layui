@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bookkeeping.mapper.UserMapper">
+<mapper namespace="com.jwt.mapper.UserMapper">
 
-     <!-- 通用查询映射结果 -->
-     <resultMap id="BaseResultMap" type="com.bookkeeping.entity.UserModel">
-           <id column="id" property="id" />
-           <result column="name" property="name" />
-           <result column="pwd" property="pwd" />
-           <result column="role_id" property="roleId" />
-           <result column="phone" property="phone" />
-           <result column="status" property="status" />
-           <result column="remark" property="remark" />
-           <result column="is_deleted" property="isDeleted" />
-           <result column="create_time" property="createTime" />
-           <result column="create_by" property="createBy" />
-           <result column="update_time" property="updateTime" />
-           <result column="update_by" property="updateBy" />
-     </resultMap>
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jwt.entity.UserModel">
+        <id column="id" property="id" />
+        <result column="user_name" property="userName" />
+        <result column="real_name" property="realName" />
+        <result column="email" property="email" />
+        <result column="level" property="level" />
+        <result column="status" property="status" />
+        <result column="sex" property="sex" />
+        <result column="pass_word" property="passWord" />
+        <result column="salt" property="salt" />
+        <result column="login_at" property="loginAt" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="created_by" property="createdBy" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="updated_at" property="updatedAt" />
+    </resultMap>
 
 </mapper>

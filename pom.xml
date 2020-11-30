@@ -12,8 +12,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.0.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>2.1.3.RELEASE</version>
+        <relativePath/>
     </parent>
 
     <properties>
@@ -24,116 +24,98 @@
     </properties>
 
     <dependencies>
-        <!--Spring Boot 开始-->
+        <!-- web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <!-- mybatis-plus -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.1.2</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.1.10</version>
-        </dependency>
-        <!--Spring Boot 结束-->
-        <!--mysql-->
+
+        <!-- mysql -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Apache Begin -->
+        <!-- spring热部署 -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-        </dependency>
-        <!-- Apache End -->
 
-        <!--spring boot 整合shiro依赖-->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
-        <!--shiro依赖-->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-all</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
-        <!--shiro添加ehcache缓存 -->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-ehcache</artifactId>
-            <version>1.2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.theborakompanioni</groupId>
-            <artifactId>thymeleaf-extras-shiro</artifactId>
-            <version>2.0.0</version>
-        </dependency>
+        <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.4</version>
         </dependency>
 
-        <!-- mybatis-plus 3.0.5-->
+        <!-- druid -->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.0.5</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.17</version>
         </dependency>
 
-        <!-- guava -->
+        <!-- fastjson -->
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>27.0-jre</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.58</version>
         </dependency>
 
-        <!-- 分页插件 -->
+        <!--shiro-->
         <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.5</version>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring-boot-starter</artifactId>
+            <version>1.4.0</version>
         </dependency>
-        <!--引入hutool-->
+
+        <!--JWT-->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.7.0</version>
+        </dependency>
+
+        <!-- Redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
+        <!-- hutool-all -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.3.1</version>
+            <version>5.5.1</version>
         </dependency>
 
-        <!--引入jackson-->
+        <!--  代码生成开始 -->
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.9.5</version>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.0</version>
         </dependency>
-
-        <!-- p6spy -->
         <dependency>
-            <groupId>p6spy</groupId>
-            <artifactId>p6spy</artifactId>
-            <version>3.9.0</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generate</artifactId>
+            <version>2.3</version>
         </dependency>
-
-
-
+        <!--  代码生成结束 -->
 
     </dependencies>
 
@@ -144,7 +126,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.0.4.RELEASE</version>
                 <configuration>
-                    <mainClass>com.bookkeeping.Application</mainClass>
+                    <mainClass>com.jwt.Application</mainClass>
                 </configuration>
             </plugin>
         </plugins>

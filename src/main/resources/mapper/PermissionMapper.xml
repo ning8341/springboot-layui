@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bookkeeping.mapper.PermissionMapper">
+<mapper namespace="com.jwt.mapper.PermissionMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.bookkeeping.entity.PermissionModel">
-        <id column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="pid" property="pid"/>
-        <result column="descpt" property="descpt"/>
-        <result column="url" property="url"/>
-        <result column="sort" property="sort"/>
-        <result column="is_deleted" property="isDeleted"/>
-        <result column="create_time" property="createTime"/>
-        <result column="create_by" property="createBy"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="update_by" property="updateBy"/>
-    </resultMap>
-
-
+    <!-- 获取登录用户拥有的权限 -->
+    <select id="queryByUser" parameterType="Object" resultType="com.jwt.entity.PermissionModel">
+		   SELECT p.*
+		   FROM  t_permission p
+		   WHERE exists(
+		   		select a.id from t_role_permission a
+		   		join t_role b on a.role_id = b.id
+		   		join t_user_role c on c.role_id = b.id
+		   		join t_user d on d.id = c.user_id
+		   		where p.id = a.permission_id AND d.user_name = #{username,jdbcType=VARCHAR}
+		   )
+		   and p.del_flag = 0
+		   order by p.sort_no ASC
+	</select>
 
 </mapper>

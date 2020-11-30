@@ -1,0 +1,144 @@
+package ${cfg.controllerPackageName};
+
+
+import org.springframework.web.bind.annotation.RequestMapping;
+
+#if(${restControllerStyle})
+import org.springframework.web.bind.annotation.RestController;
+#else
+import org.springframework.stereotype.Controller;
+#end
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+import com.sgcc.business.utils.PageModel;
+import com.sgcc.business.utils.Result;
+
+import ${cfg.servicePackageName}.${table.serviceName};
+import cn.hutool.core.lang.Assert;
+##import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import ${cfg.modelPackageName}.${entity}Model;
+##import java.util.Date;
+import java.util.Arrays;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+
+#foreach($field in ${table.fields})
+    #if(${field.keyFlag})
+        #set($idpropertyType=${field.propertyType})
+    #end
+#end
+/**
+ * <p>
+ * $!{table.comment}前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@RequestMapping("/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+#if(${kotlin})
+class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
+
+#else
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass} {
+#else
+public class ${table.controllerName} {
+#end
+    @Autowired
+    private ${table.serviceName} service;
+	
+	/**
+    * 查询$!{table.comment}分页方法
+    *
+    * @param pageModel 分页实体
+    * @return com.ean.common.web.model.ResultModel
+    * @author ${author}
+    * @date ${date}
+    */
+    @GetMapping("")
+    public Result queryList(HttpServletRequest request) {
+    	PageModel<${entity}Model> pageModel = new PageModel<${entity}Model>(request);
+		if (pageModel.isIsflag()) {
+			pageModel = (PageModel<${entity}Model>) service.queryListByPage(pageModel);
+			return Result.ok(pageModel);
+		} else {
+			List<${entity}Model> list = service.queryList(pageModel);
+			return Result.ok(list);
+		}
+    }
+    
+    /**
+    * 根据$!{table.comment}ID查询
+    *
+    * @param id $!{table.comment}ID
+    * @return ResultModel
+    * @author ${author}
+    * @date ${date}
+    */
+    @GetMapping("/{id}")
+    public Result get(@PathVariable String id) {
+            Assert.notNull(id);
+            ${entity}Model entity = service.selectById(id);
+            return Result.ok(entity);
+    }
+
+    /**
+     * 新增$!{table.comment}方法
+     *
+     * @param entity $!{table.comment}实体
+     * @return com.ean.common.web.model.ResultModel
+     * @author ${author}
+     * @date ${date}
+     */
+    @PostMapping("")
+    public Result save(@RequestBody ${entity}Model entity) {
+        return Result.ok(service.insert(entity));
+    }
+
+    /**
+     * 修改$!{table.comment}方法
+     *
+     * @param entity $!{table.comment}实体
+     * @return com.ean.common.web.model.ResultModel
+     * @author ${author}
+     * @date ${date}
+     */
+    @PutMapping("/{id}")
+    public Result update(@RequestBody ${entity}Model entity) {
+        service.updateById(entity);
+        return Result.ok();
+    }
+
+    /**
+     * 批量删除$!{table.comment}方法
+     *
+     * @param ids $!{table.comment}ID集合
+     * @return com.ean.common.web.model.ResultModel
+     * @author ${author}
+     * @date ${date}
+     */
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable String id) {
+        Assert.notNull(id);
+        String[] ids = id.split(",");
+        return Result.ok(service.deleteBatchIds(Arrays.asList(ids)));
+    }
+}
+
+#end
