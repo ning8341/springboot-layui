@@ -36,9 +36,9 @@
 >
 > - nginx自行搭建，配置如下
 >
-> - [前端代码]: https://github.com/ning8341/frontend_springboot_layui
+> - [ 前端代码 https://github.com/ning8341/frontend_springboot_layui ](https://github.com/ning8341/frontend_springboot_layui)
 >
-> - [后端代码]: 
+> - [后端代码 https://github.com/ning8341/springboot-layui/tree/jwt](https://github.com/ning8341/springboot-layui/tree/jwt)
 >
 >   
 
