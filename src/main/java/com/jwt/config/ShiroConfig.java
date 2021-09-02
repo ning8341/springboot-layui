@@ -43,6 +43,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/sys/login", "anon"); //登录接口排除
         filterChainDefinitionMap.put("/sys/logout", "anon"); //登出接口排除
         filterChainDefinitionMap.put("/", "anon");
+        filterChainDefinitionMap.put("/configuration", "anon");
+        filterChainDefinitionMap.put("/configuration/**", "anon");
         filterChainDefinitionMap.put("/**/*.js", "anon");
         filterChainDefinitionMap.put("/**/*.css", "anon");
         filterChainDefinitionMap.put("/**/*.html", "anon");
